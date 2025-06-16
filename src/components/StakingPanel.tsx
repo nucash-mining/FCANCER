@@ -4,6 +4,7 @@ import { useTokenStats } from '../hooks/useTokenStats';
 import { useWallet } from '../hooks/useWallet';
 import { useContracts } from '../hooks/useContracts';
 import { SUPPORTED_CHAINS } from '../constants/chains';
+import CrossChainStakingPanel from './CrossChainStakingPanel';
 
 const StakingPanel: React.FC = () => {
   const { stats, updateStats } = useTokenStats();
@@ -15,6 +16,7 @@ const StakingPanel: React.FC = () => {
   const [isUnstaking, setIsUnstaking] = useState(false);
   const [isClaiming, setIsClaiming] = useState(false);
   const [isMining, setIsMining] = useState(false);
+  const [useCrossChain, setUseCrossChain] = useState(true); // Default to cross-chain
 
   // Get current chain info and dynamic ticker
   const currentChain = SUPPORTED_CHAINS.find(chain => chain.id === wallet.chainId);
@@ -107,6 +109,11 @@ const StakingPanel: React.FC = () => {
     setUnstakeAmount(stats.stakedAmount.toString());
   };
 
+  // Use cross-chain staking by default
+  if (useCrossChain) {
+    return <CrossChainStakingPanel />;
+  }
+
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
       <div className="flex items-center justify-between mb-6">
@@ -115,6 +122,30 @@ const StakingPanel: React.FC = () => {
             <Shield className="h-5 w-5 text-white" />
           </div>
           <h2 className="text-xl font-bold text-gray-900">{networkSymbol} Staking</h2>
+        </div>
+        
+        {/* Staking Mode Toggle */}
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={() => setUseCrossChain(false)}
+            className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+              !useCrossChain 
+                ? 'bg-purple-600 text-white' 
+                : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+            }`}
+          >
+            Legacy
+          </button>
+          <button
+            onClick={() => setUseCrossChain(true)}
+            className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+              useCrossChain 
+                ? 'bg-purple-600 text-white' 
+                : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+            }`}
+          >
+            Cross-Chain
+          </button>
         </div>
         
         {/* Network Indicator */}
@@ -303,6 +334,23 @@ const StakingPanel: React.FC = () => {
             </div>
           </div>
         )}
+
+        {/* Cross-Chain Upgrade Notice */}
+        <div className="bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-lg p-4">
+          <div className="flex items-center space-x-2 mb-2">
+            <Shield className="h-4 w-4 text-purple-600" />
+            <span className="text-sm font-medium text-purple-800">Cross-Chain Staking Available</span>
+          </div>
+          <p className="text-xs text-purple-700 mb-2">
+            Upgrade to cross-chain staking for global reward distribution across all networks.
+          </p>
+          <button
+            onClick={() => setUseCrossChain(true)}
+            className="text-xs bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700 transition-colors"
+          >
+            Switch to Cross-Chain
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -16,6 +16,31 @@ export const FCNCR_ABI = [
   "function allowance(address owner, address spender) external view returns (uint256)"
 ];
 
+export const FCNCR_CROSSCHAIN_STAKING_ABI = [
+  "function stakeTokens(uint256 amount) external",
+  "function unstakeTokens(uint256 amount) external",
+  "function claimRewards() external",
+  "function mineBlock() external",
+  "function getPendingRewards(address user) external view returns (uint256)",
+  "function getCurrentReward() external view returns (uint256)",
+  "function getNextHalvingBlock() external view returns (uint256)",
+  "function getBlocksToHalving() external view returns (uint256)",
+  "function stakedTokens(address user) external view returns (uint256)",
+  "function currentBlock() external view returns (uint256)",
+  "function totalStakedLocal() external view returns (uint256)",
+  "function totalStakedGlobal() external view returns (uint256)",
+  "function balanceOf(address account) external view returns (uint256)",
+  "function totalSupply() external view returns (uint256)",
+  "function approve(address spender, uint256 amount) external returns (bool)",
+  "function allowance(address owner, address spender) external view returns (uint256)",
+  "function requestStakeUpdates() external",
+  "function getChainStakingInfo() external view returns (uint256[] memory chainIds, uint256[] memory stakedAmounts, uint256[] memory lastUpdates, address[] memory contractAddresses)",
+  "function getStakingTokenInfo() external view returns (address tokenAddress, string memory tokenSymbol, bool isAltcoinchain, uint256 userBalance, uint256 userStaked)",
+  "function chainStakedAmounts(uint256 chainId) external view returns (uint256)",
+  "function setChainStakingContract(uint256 chainId, address contractAddress) external",
+  "function emergencyWithdrawTokens() external"
+];
+
 export const FCNCR_CROSSCHAIN_ABI = [
   ...FCNCR_ABI,
   "function bridgeTokens(uint256 amount, uint256 targetChainId) external payable",
