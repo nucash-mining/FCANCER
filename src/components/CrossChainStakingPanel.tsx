@@ -262,7 +262,7 @@ const CrossChainStakingPanel: React.FC = () => {
               ) : (
                 <Plus className="h-4 w-4" />
               )}
-              <span>{isStaking ? 'Staking...' : `STAKE ${networkSymbol}`}</span>
+              <span>{isStaking ? 'Staking...' : `DEPLOY ${networkSymbol}`}</span>
             </button>
           </div>
           {stakingStats?.stakingTokenInfo && (
@@ -305,7 +305,7 @@ const CrossChainStakingPanel: React.FC = () => {
                 ) : (
                   <Minus className="h-4 w-4" />
                 )}
-                <span>{isUnstaking ? 'Unstaking...' : `UNSTAKE ${networkSymbol}`}</span>
+                <span>{isUnstaking ? 'Unstaking...' : `REMOVE ${networkSymbol}`}</span>
               </button>
             </div>
           </div>

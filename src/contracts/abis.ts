@@ -68,15 +68,16 @@ export const BRIDGE_ABI = [
 ];
 
 export const WALT_BRIDGE_ABI = [
-  "function initiateBridge(uint256 amount, uint256 targetChainId) external",
-  "function completeBridge(address user, uint256 amount, uint256 sourceChainId, bytes32 bridgeId, uint256 timestamp, bytes calldata signature) external",
-  "function batchCompleteBridge(address[] calldata users, uint256[] calldata amounts, uint256[] calldata sourceChainIds, bytes32[] calldata bridgeIds, uint256[] calldata timestamps, bytes[] calldata signatures) external",
+  "function initiateBridge(uint256 amount, uint256 targetChainId) external payable",
+  "function completeBridge(address user, uint256 amount, uint256 sourceChainId, bytes32 bridgeId) external",
+  "function batchCompleteBridge(address[] calldata users, uint256[] calldata amounts, uint256[] calldata sourceChainIds, bytes32[] calldata bridgeIds) external",
   "function getBridgeFee(uint256 amount) external pure returns (uint256)",
   "function getBridgeRequest(uint256 nonce) external view returns (tuple(address user, uint256 amount, uint256 targetChainId, uint256 nonce, uint256 timestamp, bool processed, bytes32 bridgeId))",
   "function isBridgeProcessed(bytes32 bridgeId) external view returns (bool)",
   "function getUserBridgeInfo(address user) external view returns (uint256 bridgeCount, uint256 lastBridge, uint256 dailyAmount, uint256 remainingDaily, uint256 nextBridgeTime)",
   "function getChainInfo() external view returns (uint256[] memory supportedChainIds, address[] memory bridgeAddresses)",
   "function getBridgeStats() external view returns (uint256 totalBridgedAmount, uint256 totalFees, uint256 currentNonce, uint256 contractBalance)",
+  "function getMessageFee() external view returns (uint256)",
   "function supportedChains(uint256 chainId) external view returns (bool)",
   "function chainBridges(uint256 chainId) external view returns (address)",
   "function authorizedRelayers(address relayer) external view returns (bool)",
@@ -85,7 +86,8 @@ export const WALT_BRIDGE_ABI = [
   "function MIN_BRIDGE_AMOUNT() external view returns (uint256)",
   "function MAX_BRIDGE_AMOUNT() external view returns (uint256)",
   "function DAILY_LIMIT() external view returns (uint256)",
-  "function BRIDGE_COOLDOWN() external view returns (uint256)"
+  "function BRIDGE_COOLDOWN() external view returns (uint256)",
+  "function messenger() external view returns (address)"
 ];
 
 export const LIQUIDITY_POOL_ABI = [

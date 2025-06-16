@@ -19,6 +19,7 @@
     "deploy:walt-bridge": "hardhat run scripts/deployWALTBridge.js",
     "deploy:walt-bridge:deterministic": "hardhat run scripts/deployWALTBridgeDeterministic.js",
     "deploy:walt-bridge:all": "node scripts/deployAllWALTBridges.js",
+    "deploy:walt-bridge:crosschain": "hardhat run scripts/deployWALTBridgeCrossChain.js",
     "deploy:crosschain-staking": "hardhat run scripts/deployCrossChainStaking.js",
     "deploy:crosschain-staking:all": "node scripts/deployAllCrossChainStaking.js"
   },

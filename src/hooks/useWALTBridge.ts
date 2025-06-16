@@ -30,7 +30,7 @@ export const useWALTBridge = () => {
       }
 
       const waltBridgeContract = new ethers.Contract(addresses.waltBridge, WALT_BRIDGE_ABI, signer);
-      const waltTokenContract = new ethers.Contract(addresses.altToken, ERC20_ABI, signer);
+      const waltTokenContract = new ethers.Contract(addresses.stakingToken, ERC20_ABI, signer);
 
       setContracts({
         waltBridge: waltBridgeContract,
@@ -54,8 +54,13 @@ export const useWALTBridge = () => {
     const approveTx = await contracts.waltToken.approve(contracts.waltBridge.target, amountWei);
     await approveTx.wait();
     
-    // Then initiate bridge
-    const bridgeTx = await contracts.waltBridge.initiateBridge(amountWei, targetChainId);
+    // Get message fee for cross-chain communication
+    const messageFee = await contracts.waltBridge.getMessageFee();
+    
+    // Then initiate bridge with message fee
+    const bridgeTx = await contracts.waltBridge.initiateBridge(amountWei, targetChainId, {
+      value: messageFee
+    });
     return await bridgeTx.wait();
   };
 
@@ -145,6 +150,18 @@ export const useWALTBridge = () => {
     }
   };
 
+  const getMessageFee = async () => {
+    if (!contracts) return '0';
+    
+    try {
+      const fee = await contracts.waltBridge.getMessageFee();
+      return ethers.formatEther(fee);
+    } catch (error) {
+      console.error('Failed to get message fee:', error);
+      return '0';
+    }
+  };
+
   return {
     contracts,
     loading,
@@ -153,6 +170,7 @@ export const useWALTBridge = () => {
     getUserBridgeInfo,
     getBridgeRequest,
     getChainInfo,
-    getWALTBalance
+    getWALTBalance,
+    getMessageFee
   };
 };
