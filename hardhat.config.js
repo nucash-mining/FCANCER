@@ -52,6 +52,11 @@ module.exports = {
       url: "https://rpc.ftm.tools",
       chainId: 250,
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : []
+    },
+    etho: {
+      url: "https://rpc.ether1.org",
+      chainId: 1313161554,
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : []
     }
   },
   etherscan: {

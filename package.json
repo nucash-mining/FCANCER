@@ -14,7 +14,8 @@
     "deploy:crosschain": "hardhat run scripts/deployCrossChain.js",
     "deploy:crosschain:all": "node scripts/deployAllCrossChain.js",
     "deploy:deterministic": "hardhat run scripts/deployDeterministic.js",
-    "deploy:create2": "hardhat run scripts/deployCreate2.js"
+    "deploy:create2": "hardhat run scripts/deployCreate2.js",
+    "deploy:sonic": "hardhat run scripts/deploySonic.js --network sonic"
   },
   "dependencies": {
     "lucide-react": "^0.344.0",

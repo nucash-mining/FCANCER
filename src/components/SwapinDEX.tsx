@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowUpDown, Droplets, TrendingUp, ExternalLink, RefreshCw, Zap } from 'lucide-react';
+import { ArrowUpDown, Droplets, TrendingUp, ExternalLink, RefreshCw, Zap, Globe } from 'lucide-react';
 import { useWallet } from '../hooks/useWallet';
 import { SUPPORTED_CHAINS } from '../constants/chains';
 
@@ -20,12 +20,13 @@ const SwapinDEX: React.FC = () => {
     switch (currentChain.id) {
       case 1: return 'ETH';
       case 61803: return 'EGAZ';
-      case 7070: return 'PLANQ';
+      case 7070: return 'PLQ';
       case 800001: return 'OCTA';
-      case 2000: return 'DC';
+      case 2000: return 'WDOGE';
       case 146: return 'S';
       case 250: return 'FTM';
       case 2330: return 'ALT';
+      case 1313161554: return 'ETHO';
       default: return 'ALT';
     }
   };
@@ -63,6 +64,34 @@ const SwapinDEX: React.FC = () => {
     setToAmount(calculateToAmount(value));
   };
 
+  // Mock pool data with real Swapin.co addresses
+  const topPools = [
+    {
+      pair: `FCNCR/${networkSymbol}`,
+      apy: 45.2,
+      tvl: 1200000,
+      volume24h: 89000,
+      factory: currentChain?.factory,
+      router: currentChain?.router
+    },
+    {
+      pair: 'FCNCR/USDC',
+      apy: 32.8,
+      tvl: 890000,
+      volume24h: 67000,
+      factory: currentChain?.factory,
+      router: currentChain?.router
+    },
+    {
+      pair: `${networkSymbol}/USDC`,
+      apy: 28.5,
+      tvl: 2100000,
+      volume24h: 156000,
+      factory: currentChain?.factory,
+      router: currentChain?.router
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
       {/* Header */}
@@ -79,15 +108,33 @@ const SwapinDEX: React.FC = () => {
               </div>
             </div>
             
-            {currentChain && (
-              <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                <div 
-                  className="w-3 h-3 rounded-full"
-                  style={{ backgroundColor: currentChain.color }}
-                />
-                <span className="text-white font-medium">{currentChain.name}</span>
-              </div>
-            )}
+            <div className="flex items-center space-x-4">
+              {currentChain && (
+                <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                  <div 
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: currentChain.color }}
+                  />
+                  <span className="text-white font-medium">{currentChain.name}</span>
+                  <a 
+                    href={currentChain.explorer}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white/60 hover:text-white"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
+                </div>
+              )}
+              
+              {/* Swapin.co Contract Info */}
+              {currentChain && (
+                <div className="text-xs text-white/60 bg-white/5 px-3 py-2 rounded-lg">
+                  <div>Factory: {currentChain.factory?.slice(0, 8)}...</div>
+                  <div>Router: {currentChain.router?.slice(0, 8)}...</div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -99,13 +146,23 @@ const SwapinDEX: React.FC = () => {
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold text-white">Swap Tokens</h2>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-4">
                   <button className="text-white/60 hover:text-white transition-colors">
                     <RefreshCw className="h-5 w-5" />
                   </button>
                   <div className="text-sm text-white/60">
                     Slippage: {slippage}%
                   </div>
+                  <select 
+                    value={slippage}
+                    onChange={(e) => setSlippage(e.target.value)}
+                    className="bg-white/10 text-white text-sm rounded px-2 py-1 border border-white/20"
+                  >
+                    <option value="0.1">0.1%</option>
+                    <option value="0.5">0.5%</option>
+                    <option value="1.0">1.0%</option>
+                    <option value="3.0">3.0%</option>
+                  </select>
                 </div>
               </div>
 
@@ -181,8 +238,14 @@ const SwapinDEX: React.FC = () => {
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-white/60">Minimum Received</span>
-                    <span className="text-white">{(parseFloat(toAmount) * 0.995).toFixed(6)} {networkSymbol}</span>
+                    <span className="text-white">{(parseFloat(toAmount) * (1 - parseFloat(slippage)/100)).toFixed(6)} {networkSymbol}</span>
                   </div>
+                  {currentChain && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-white/60">Router Contract</span>
+                      <span className="text-white font-mono text-xs">{currentChain.router?.slice(0, 10)}...</span>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -208,7 +271,10 @@ const SwapinDEX: React.FC = () => {
           <div className="space-y-6">
             {/* Cross-Chain Bridge */}
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-              <h3 className="text-xl font-bold text-white mb-4">Cross-Chain Bridge</h3>
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center space-x-2">
+                <Globe className="h-5 w-5" />
+                <span>Cross-Chain Bridge</span>
+              </h3>
               <p className="text-white/60 text-sm mb-4">
                 Bridge FCNCR tokens across all supported networks with minimal fees.
               </p>
@@ -220,11 +286,16 @@ const SwapinDEX: React.FC = () => {
                         className="w-4 h-4 rounded-full"
                         style={{ backgroundColor: chain.color }}
                       />
-                      <span className="text-white text-sm">{chain.name}</span>
+                      <div>
+                        <span className="text-white text-sm">{chain.name}</span>
+                        <div className="text-xs text-white/40 font-mono">
+                          {chain.factory?.slice(0, 8)}...
+                        </div>
+                      </div>
                     </div>
                     <div className="flex items-center space-x-2">
                       <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                      <span className="text-green-400 text-xs">Active</span>
+                      <span className="text-green-400 text-xs">Live</span>
                     </div>
                   </div>
                 ))}
@@ -236,38 +307,34 @@ const SwapinDEX: React.FC = () => {
 
             {/* Liquidity Pools */}
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-              <h3 className="text-xl font-bold text-white mb-4">Top Pools</h3>
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center space-x-2">
+                <Droplets className="h-5 w-5" />
+                <span>Top Pools</span>
+              </h3>
               <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex -space-x-1">
-                      <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full border-2 border-white"></div>
-                      <div 
-                        className="w-6 h-6 rounded-full border-2 border-white"
-                        style={{ backgroundColor: currentChain?.color || '#8B5CF6' }}
-                      ></div>
+                {topPools.map((pool, index) => (
+                  <div key={index} className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <div className="flex -space-x-1">
+                        <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full border-2 border-white"></div>
+                        <div 
+                          className="w-6 h-6 rounded-full border-2 border-white"
+                          style={{ backgroundColor: currentChain?.color || '#8B5CF6' }}
+                        ></div>
+                      </div>
+                      <div>
+                        <span className="text-white text-sm">{pool.pair}</span>
+                        <div className="text-xs text-white/40 font-mono">
+                          {pool.factory?.slice(0, 8)}...
+                        </div>
+                      </div>
                     </div>
-                    <span className="text-white text-sm">FCNCR/{networkSymbol}</span>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-green-400 text-sm font-bold">45.2% APY</div>
-                    <div className="text-white/60 text-xs">$1.2M TVL</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex -space-x-1">
-                      <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full border-2 border-white"></div>
-                      <div className="w-6 h-6 bg-blue-500 rounded-full border-2 border-white"></div>
+                    <div className="text-right">
+                      <div className="text-green-400 text-sm font-bold">{pool.apy}% APY</div>
+                      <div className="text-white/60 text-xs">${(pool.tvl / 1000000).toFixed(1)}M TVL</div>
                     </div>
-                    <span className="text-white text-sm">FCNCR/USDC</span>
                   </div>
-                  <div className="text-right">
-                    <div className="text-green-400 text-sm font-bold">32.8% APY</div>
-                    <div className="text-white/60 text-xs">$890K TVL</div>
-                  </div>
-                </div>
+                ))}
               </div>
               <button className="w-full mt-4 bg-gradient-to-r from-cyan-600 to-blue-600 text-white py-3 rounded-lg hover:from-cyan-700 hover:to-blue-700 transition-all duration-200 transform hover:scale-105 flex items-center justify-center space-x-2">
                 <Droplets className="h-5 w-5" />
@@ -275,9 +342,12 @@ const SwapinDEX: React.FC = () => {
               </button>
             </div>
 
-            {/* Stats */}
+            {/* DEX Stats */}
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-              <h3 className="text-xl font-bold text-white mb-4">DEX Stats</h3>
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center space-x-2">
+                <TrendingUp className="h-5 w-5" />
+                <span>Swapin.co Stats</span>
+              </h3>
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between items-center mb-1">
@@ -292,12 +362,37 @@ const SwapinDEX: React.FC = () => {
                     <span className="text-white/60 text-sm">Total Fees</span>
                     <span className="text-green-400 font-bold">$7.2K</span>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center mb-1">
                     <span className="text-white/60 text-sm">Active Pairs</span>
                     <span className="text-white font-bold">24</span>
                   </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/60 text-sm">Networks</span>
+                    <span className="text-white font-bold">{SUPPORTED_CHAINS.length}</span>
+                  </div>
                 </div>
               </div>
+              
+              {/* Current Network Info */}
+              {currentChain && (
+                <div className="mt-4 p-3 bg-white/5 rounded-lg">
+                  <div className="text-xs text-white/60 mb-2">Current Network Contracts:</div>
+                  <div className="space-y-1 text-xs font-mono">
+                    <div className="flex justify-between">
+                      <span className="text-white/60">Factory:</span>
+                      <span className="text-white">{currentChain.factory?.slice(0, 10)}...</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-white/60">Router:</span>
+                      <span className="text-white">{currentChain.router?.slice(0, 10)}...</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-white/60">Multicall:</span>
+                      <span className="text-white">{currentChain.multicall?.slice(0, 10)}...</span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

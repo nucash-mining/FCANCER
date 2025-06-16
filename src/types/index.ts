@@ -9,6 +9,9 @@ export interface Chain {
   router: string;
   multicall: string;
   tokenMultisender: string;
+  feeToSetter: string;
+  initHashCode: string;
+  swapd?: string;
   color: string;
 }
 
@@ -36,4 +39,14 @@ export interface BridgeTransaction {
   amount: number;
   status: 'pending' | 'completed' | 'failed';
   timestamp: number;
+}
+
+export interface SwapinPool {
+  token0: string;
+  token1: string;
+  reserve0: string;
+  reserve1: string;
+  totalSupply: string;
+  apy: number;
+  volume24h: number;
 }
