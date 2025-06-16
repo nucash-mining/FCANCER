@@ -16,11 +16,13 @@ export const useTokenStats = () => {
     userBalance: 0,
     claimableRewards: 0
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateStats = async () => {
     if (!wallet.isConnected) return;
     
     try {
+      setIsLoading(true);
       const contractStats = await getTokenStats();
       if (contractStats) {
         setStats(prev => ({
@@ -35,18 +37,27 @@ export const useTokenStats = () => {
       }
     } catch (error) {
       console.error('Failed to update stats:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  // Real-time updates every 5 seconds when connected
   useEffect(() => {
     if (wallet.isConnected) {
       updateStats();
       
-      // Update stats every 10 seconds
-      const interval = setInterval(updateStats, 10000);
+      const interval = setInterval(updateStats, 5000);
       return () => clearInterval(interval);
     }
-  }, [wallet.isConnected, wallet.chainId]);
+  }, [wallet.isConnected, wallet.chainId, wallet.address]);
 
-  return { stats, setStats, updateStats };
+  // Update immediately when wallet changes
+  useEffect(() => {
+    if (wallet.isConnected) {
+      updateStats();
+    }
+  }, [wallet.address, wallet.chainId]);
+
+  return { stats, setStats, updateStats, isLoading };
 };

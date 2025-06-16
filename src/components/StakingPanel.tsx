@@ -8,9 +8,11 @@ import { SUPPORTED_CHAINS } from '../constants/chains';
 const StakingPanel: React.FC = () => {
   const { stats, updateStats } = useTokenStats();
   const { wallet } = useWallet();
-  const { stakeALT, claimRewards, mineBlock } = useContracts();
+  const { stakeALT, unstakeALT, claimRewards, mineBlock } = useContracts();
   const [stakeAmount, setStakeAmount] = useState('');
+  const [unstakeAmount, setUnstakeAmount] = useState('');
   const [isStaking, setIsStaking] = useState(false);
+  const [isUnstaking, setIsUnstaking] = useState(false);
   const [isClaiming, setIsClaiming] = useState(false);
   const [isMining, setIsMining] = useState(false);
 
@@ -48,6 +50,22 @@ const StakingPanel: React.FC = () => {
     }
   };
 
+  const handleUnstake = async () => {
+    if (!wallet.isConnected || !unstakeAmount) return;
+    
+    try {
+      setIsUnstaking(true);
+      await unstakeALT(unstakeAmount);
+      setUnstakeAmount('');
+      await updateStats();
+    } catch (error) {
+      console.error('Unstaking failed:', error);
+      alert('Unstaking failed. Please check your staked amount and try again.');
+    } finally {
+      setIsUnstaking(false);
+    }
+  };
+
   const handleClaim = async () => {
     if (!wallet.isConnected) return;
     
@@ -80,6 +98,10 @@ const StakingPanel: React.FC = () => {
 
   const maxStake = () => {
     setStakeAmount('1000'); // This should be replaced with actual ALT balance
+  };
+
+  const maxUnstake = () => {
+    setUnstakeAmount(stats.stakedAmount.toString());
   };
 
   const networkSymbol = getNetworkSymbol();
@@ -156,6 +178,45 @@ const StakingPanel: React.FC = () => {
             </button>
           </div>
         </div>
+
+        {/* Unstaking Input */}
+        {stats.stakedAmount > 0 && (
+          <div className="bg-red-50 rounded-lg p-4 border border-red-200">
+            <label className="block text-sm font-medium text-red-700 mb-2">
+              Remove {networkSymbol} Amount
+            </label>
+            <div className="flex space-x-2">
+              <div className="flex-1 relative">
+                <input
+                  type="number"
+                  value={unstakeAmount}
+                  onChange={(e) => setUnstakeAmount(e.target.value)}
+                  placeholder="0.0"
+                  max={stats.stakedAmount}
+                  className="w-full px-3 py-2 border border-red-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                />
+                <button
+                  onClick={maxUnstake}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 text-xs font-medium text-red-600 hover:text-red-700"
+                >
+                  MAX
+                </button>
+              </div>
+              <button
+                onClick={handleUnstake}
+                disabled={!wallet.isConnected || !unstakeAmount || isUnstaking || parseFloat(unstakeAmount) > stats.stakedAmount}
+                className="bg-gradient-to-r from-red-600 to-pink-600 text-white px-6 py-2 rounded-lg hover:from-red-700 hover:to-pink-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 flex items-center space-x-2"
+              >
+                {isUnstaking ? (
+                  <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                ) : (
+                  <Minus className="h-4 w-4" />
+                )}
+                <span>{isUnstaking ? 'Removing...' : `REMOVE ${networkSymbol}`}</span>
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Current Staking Info */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

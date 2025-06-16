@@ -87,6 +87,15 @@ export const useContracts = () => {
     return await stakeTx.wait();
   };
 
+  const unstakeALT = async (amount: string) => {
+    if (!contracts) throw new Error('Contracts not initialized');
+    
+    const amountWei = ethers.parseEther(amount);
+    
+    const unstakeTx = await contracts.fcncr.unstakeALT(amountWei);
+    return await unstakeTx.wait();
+  };
+
   const claimRewards = async () => {
     if (!contracts) throw new Error('Contracts not initialized');
     
@@ -176,6 +185,7 @@ export const useContracts = () => {
     contracts,
     loading,
     stakeALT,
+    unstakeALT,
     claimRewards,
     mineBlock,
     bridgeTokens,

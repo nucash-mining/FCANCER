@@ -1,12 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
 import StakingPanel from './components/StakingPanel';
 import CrossChainBridge from './components/CrossChainBridge';
 import LiquidityPool from './components/LiquidityPool';
 import ChainSelector from './components/ChainSelector';
+import SwapinDEX from './components/SwapinDEX';
+import { ArrowRightLeft } from 'lucide-react';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState<'main' | 'swapin'>('main');
+
+  if (currentPage === 'swapin') {
+    return (
+      <div className="min-h-screen">
+        <SwapinDEX />
+        <button
+          onClick={() => setCurrentPage('main')}
+          className="fixed top-4 left-4 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg hover:bg-white/30 transition-colors flex items-center space-x-2"
+        >
+          <ArrowRightLeft className="h-4 w-4" />
+          <span>Back to FCNCR</span>
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
       <Header />
@@ -18,10 +37,21 @@ function App() {
             Fuck Cancer Token
           </h1>
           <p className="text-xl text-gray-600 mb-2">FCNCR - Fighting Cancer Through Blockchain</p>
-          <p className="text-lg text-gray-500 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-500 max-w-3xl mx-auto mb-6">
             A cross-chain token with Bitcoin-like halving mechanics, designed to support cancer research 
             while rewarding ALT stakers across multiple blockchain networks.
           </p>
+          
+          {/* Navigation */}
+          <div className="flex justify-center space-x-4">
+            <button
+              onClick={() => setCurrentPage('swapin')}
+              className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-200 transform hover:scale-105 flex items-center space-x-2"
+            >
+              <img src="/image.png" alt="Swapin" className="h-5 w-5" />
+              <span>Open Swapin.co DEX</span>
+            </button>
+          </div>
         </div>
 
         {/* Dashboard */}
