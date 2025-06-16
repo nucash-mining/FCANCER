@@ -13,6 +13,7 @@ export interface Chain {
   initHashCode: string;
   swapd?: string;
   color: string;
+  logo: string; // Added logo property
 }
 
 export interface TokenStats {

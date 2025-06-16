@@ -44,8 +44,18 @@ const NetworkSelector: React.FC<NetworkSelectorProps> = ({
           className="w-full flex items-center justify-between p-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
         >
           <div className="flex items-center space-x-3">
+            <img 
+              src={selectedChain.logo} 
+              alt={selectedChain.name}
+              className="w-6 h-6 rounded-full object-cover"
+              onError={(e) => {
+                // Fallback to colored circle if logo fails to load
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.nextElementSibling!.style.display = 'block';
+              }}
+            />
             <div 
-              className="w-4 h-4 rounded-full"
+              className="w-6 h-6 rounded-full hidden"
               style={{ backgroundColor: selectedChain.color }}
             />
             <span className="font-medium text-gray-900 dark:text-white">{selectedChain.name}</span>
@@ -83,8 +93,18 @@ const NetworkSelector: React.FC<NetworkSelectorProps> = ({
                 }`}
               >
                 <div className="flex items-center space-x-3">
+                  <img 
+                    src={chain.logo} 
+                    alt={chain.name}
+                    className="w-5 h-5 rounded-full object-cover"
+                    onError={(e) => {
+                      // Fallback to colored circle if logo fails to load
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.nextElementSibling!.style.display = 'block';
+                    }}
+                  />
                   <div 
-                    className="w-4 h-4 rounded-full"
+                    className="w-5 h-5 rounded-full hidden"
                     style={{ backgroundColor: chain.color }}
                   />
                   <div>

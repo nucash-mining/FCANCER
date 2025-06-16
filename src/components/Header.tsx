@@ -34,8 +34,18 @@ const Header: React.FC = () => {
               <div className="flex items-center space-x-3">
                 {currentChain && (
                   <div className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-800 px-3 py-2 rounded-lg">
+                    <img 
+                      src={currentChain.logo} 
+                      alt={currentChain.name}
+                      className="w-4 h-4 rounded-full object-cover"
+                      onError={(e) => {
+                        // Fallback to colored circle if logo fails to load
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.nextElementSibling!.style.display = 'block';
+                      }}
+                    />
                     <div 
-                      className="w-3 h-3 rounded-full"
+                      className="w-4 h-4 rounded-full hidden"
                       style={{ backgroundColor: currentChain.color }}
                     />
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">

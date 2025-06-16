@@ -64,7 +64,7 @@ function App() {
                 onClick={() => setCurrentPage('swapin')}
                 className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-lg hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 transform hover:scale-105 flex items-center space-x-2"
               >
-                <img src="/image.png" alt="Swapin" className="h-5 w-5" />
+                <img src="/logos/swapin.png" alt="Swapin" className="h-5 w-5" />
                 <span>Open Swapin.co DEX</span>
               </button>
             </div>
@@ -132,7 +132,7 @@ function App() {
               onClick={() => setCurrentPage('swapin')}
               className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-200 transform hover:scale-105 flex items-center space-x-2"
             >
-              <img src="/image.png" alt="Swapin" className="h-5 w-5" />
+              <img src="/logos/swapin.png" alt="Swapin" className="h-5 w-5" />
               <span>Open Swapin.co DEX</span>
             </button>
             <button

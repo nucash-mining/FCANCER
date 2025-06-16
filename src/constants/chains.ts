@@ -14,7 +14,8 @@ export const SUPPORTED_CHAINS: Chain[] = [
     tokenMultisender: '0xCF110A9F7c705604190f9Dd6FDf0FC79D00D569B',
     feeToSetter: '0xE01A6a52Ef245FDeA587735aFe60a1C96152A48D',
     initHashCode: '0x0c817536501f0541680bc3d164be66d6559cdd44e8acf7afeee6aa44283d54ca',
-    color: '#8B5CF6'
+    color: '#8B5CF6',
+    logo: '/logos/altcoinchain.png'
   },
   {
     id: 1,
@@ -29,7 +30,8 @@ export const SUPPORTED_CHAINS: Chain[] = [
     tokenMultisender: '0x0000000000000000000000000000000000000000', // To be deployed
     feeToSetter: '0x0000000000000000000000000000000000000000',
     initHashCode: '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f',
-    color: '#627EEA'
+    color: '#627EEA',
+    logo: '/logos/ethereum.png'
   },
   {
     id: 61803,
@@ -44,7 +46,8 @@ export const SUPPORTED_CHAINS: Chain[] = [
     tokenMultisender: '0xCF110A9F7c705604190f9Dd6FDf0FC79D00D569B',
     feeToSetter: '0xE01A6a52Ef245FDeA587735aFe60a1C96152A48D',
     initHashCode: '0x0c817536501f0541680bc3d164be66d6559cdd44e8acf7afeee6aa44283d54ca',
-    color: '#3B82F6'
+    color: '#3B82F6',
+    logo: '/logos/etho.png' // Using ETHO logo for Etica as they're related
   },
   {
     id: 7070,
@@ -60,7 +63,8 @@ export const SUPPORTED_CHAINS: Chain[] = [
     feeToSetter: '0xE01A6a52Ef245FDeA587735aFe60a1C96152A48D',
     initHashCode: '0x0c817536501f0541680bc3d164be66d6559cdd44e8acf7afeee6aa44283d54ca',
     swapd: '0x67e7ebdA5CBA73f5830538B03E678A1b45517dd7',
-    color: '#10B981'
+    color: '#10B981',
+    logo: '/logos/swapin.png' // Using Swapin logo as placeholder for PlanQ
   },
   {
     id: 800001,
@@ -75,7 +79,8 @@ export const SUPPORTED_CHAINS: Chain[] = [
     tokenMultisender: '0xCF110A9F7c705604190f9Dd6FDf0FC79D00D569B',
     feeToSetter: '0xE01A6a52Ef245FDeA587735aFe60a1C96152A48D',
     initHashCode: '0x0c817536501f0541680bc3d164be66d6559cdd44e8acf7afeee6aa44283d54ca',
-    color: '#F59E0B'
+    color: '#F59E0B',
+    logo: '/logos/swapin.png' // Using Swapin logo as placeholder for OctaSpace
   },
   {
     id: 2000,
@@ -90,7 +95,8 @@ export const SUPPORTED_CHAINS: Chain[] = [
     tokenMultisender: '0x5a03b79b6F4cbb1eC8276a87b74a9304D05442C7',
     feeToSetter: '0xE01A6a52Ef245FDeA587735aFe60a1C96152A48D',
     initHashCode: '0x0c817536501f0541680bc3d164be66d6559cdd44e8acf7afeee6aa44283d54ca',
-    color: '#FBBF24'
+    color: '#FBBF24',
+    logo: '/logos/dogechain.png'
   },
   {
     id: 146,
@@ -105,7 +111,8 @@ export const SUPPORTED_CHAINS: Chain[] = [
     tokenMultisender: '0x5a03b79b6F4cbb1eC8276a87b74a9304D05442C7', // To be deployed
     feeToSetter: '0xE01A6a52Ef245FDeA587735aFe60a1C96152A48D', // To be deployed
     initHashCode: '0x0c817536501f0541680bc3d164be66d6559cdd44e8acf7afeee6aa44283d54ca',
-    color: '#00D4FF'
+    color: '#00D4FF',
+    logo: '/logos/swapin.png' // Using Swapin logo as placeholder for Sonic
   },
   {
     id: 250,
@@ -120,7 +127,8 @@ export const SUPPORTED_CHAINS: Chain[] = [
     tokenMultisender: '0x5a03b79b6F4cbb1eC8276a87b74a9304D05442C7',
     feeToSetter: '0xE01A6a52Ef245FDeA587735aFe60a1C96152A48D',
     initHashCode: '0x0c817536501f0541680bc3d164be66d6559cdd44e8acf7afeee6aa44283d54ca',
-    color: '#1969FF'
+    color: '#1969FF',
+    logo: '/logos/swapin.png' // Using Swapin logo as placeholder for Fantom
   },
   {
     id: 1313161554,
@@ -135,7 +143,8 @@ export const SUPPORTED_CHAINS: Chain[] = [
     tokenMultisender: '0x5a03b79b6F4cbb1eC8276a87b74a9304D05442C7',
     feeToSetter: '0xE01A6a52Ef245FDeA587735aFe60a1C96152A48D',
     initHashCode: '0x0c817536501f0541680bc3d164be66d6559cdd44e8acf7afeee6aa44283d54ca',
-    color: '#00FF88'
+    color: '#00FF88',
+    logo: '/logos/etho.png'
   }
 ];
 
