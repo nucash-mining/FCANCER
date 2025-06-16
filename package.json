@@ -15,7 +15,10 @@
     "deploy:crosschain:all": "node scripts/deployAllCrossChain.js",
     "deploy:deterministic": "hardhat run scripts/deployDeterministic.js",
     "deploy:create2": "hardhat run scripts/deployCreate2.js",
-    "deploy:sonic": "hardhat run scripts/deploySonic.js --network sonic"
+    "deploy:sonic": "hardhat run scripts/deploySonic.js --network sonic",
+    "deploy:walt-bridge": "hardhat run scripts/deployWALTBridge.js",
+    "deploy:walt-bridge:deterministic": "hardhat run scripts/deployWALTBridgeDeterministic.js",
+    "deploy:walt-bridge:all": "node scripts/deployAllWALTBridges.js"
   },
   "dependencies": {
     "lucide-react": "^0.344.0",

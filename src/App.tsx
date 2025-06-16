@@ -6,10 +6,11 @@ import CrossChainBridge from './components/CrossChainBridge';
 import LiquidityPool from './components/LiquidityPool';
 import ChainSelector from './components/ChainSelector';
 import SwapinDEX from './components/SwapinDEX';
-import { ArrowRightLeft } from 'lucide-react';
+import WALTBridge from './components/WALTBridge';
+import { ArrowRightLeft, Coins } from 'lucide-react';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'main' | 'swapin'>('main');
+  const [currentPage, setCurrentPage] = useState<'main' | 'swapin' | 'walt-bridge'>('main');
 
   if (currentPage === 'swapin') {
     return (
@@ -22,6 +23,82 @@ function App() {
           <ArrowRightLeft className="h-4 w-4" />
           <span>Back to FCNCR</span>
         </button>
+      </div>
+    );
+  }
+
+  if (currentPage === 'walt-bridge') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+        <Header />
+        
+        <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Hero Section */}
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+              wALT Bridge
+            </h1>
+            <p className="text-xl text-gray-600 mb-2">Cross-Chain wALT Token Bridge</p>
+            <p className="text-lg text-gray-500 max-w-3xl mx-auto mb-6">
+              Bridge wALT tokens seamlessly across all supported blockchain networks with 
+              deterministic contract addresses and advanced security features.
+            </p>
+            
+            {/* Navigation */}
+            <div className="flex justify-center space-x-4 mb-8">
+              <button
+                onClick={() => setCurrentPage('main')}
+                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-200 transform hover:scale-105 flex items-center space-x-2"
+              >
+                <Coins className="h-5 w-5" />
+                <span>Back to FCNCR</span>
+              </button>
+              <button
+                onClick={() => setCurrentPage('swapin')}
+                className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-lg hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 transform hover:scale-105 flex items-center space-x-2"
+              >
+                <img src="/image.png" alt="Swapin" className="h-5 w-5" />
+                <span>Open Swapin.co DEX</span>
+              </button>
+            </div>
+          </div>
+
+          {/* wALT Bridge Component */}
+          <WALTBridge />
+
+          {/* Features */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+              <div className="bg-green-100 p-3 rounded-lg w-fit mb-4">
+                <ArrowRightLeft className="h-6 w-6 text-green-600" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Same Address</h3>
+              <p className="text-gray-600 text-sm">
+                Deterministic deployment ensures the same contract address across all supported chains.
+              </p>
+            </div>
+            
+            <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+              <div className="bg-blue-100 p-3 rounded-lg w-fit mb-4">
+                <Coins className="h-6 w-6 text-blue-600" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Low Fees</h3>
+              <p className="text-gray-600 text-sm">
+                Only 0.05% bridge fee with no hidden costs. Fast and secure cross-chain transfers.
+              </p>
+            </div>
+            
+            <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+              <div className="bg-purple-100 p-3 rounded-lg w-fit mb-4">
+                <ArrowRightLeft className="h-6 w-6 text-purple-600" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Multi-Chain</h3>
+              <p className="text-gray-600 text-sm">
+                Bridge across 9 blockchain networks including Ethereum, Fantom, Sonic, and more.
+              </p>
+            </div>
+          </div>
+        </main>
       </div>
     );
   }
@@ -50,6 +127,13 @@ function App() {
             >
               <img src="/image.png" alt="Swapin" className="h-5 w-5" />
               <span>Open Swapin.co DEX</span>
+            </button>
+            <button
+              onClick={() => setCurrentPage('walt-bridge')}
+              className="bg-gradient-to-r from-green-600 to-blue-600 text-white px-6 py-3 rounded-lg hover:from-green-700 hover:to-blue-700 transition-all duration-200 transform hover:scale-105 flex items-center space-x-2"
+            >
+              <ArrowRightLeft className="h-5 w-5" />
+              <span>wALT Bridge</span>
             </button>
           </div>
         </div>

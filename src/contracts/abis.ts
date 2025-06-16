@@ -42,6 +42,27 @@ export const BRIDGE_ABI = [
   "function supportedChains(uint256 chainId) external view returns (bool)"
 ];
 
+export const WALT_BRIDGE_ABI = [
+  "function initiateBridge(uint256 amount, uint256 targetChainId) external",
+  "function completeBridge(address user, uint256 amount, uint256 sourceChainId, bytes32 bridgeId, uint256 timestamp, bytes calldata signature) external",
+  "function batchCompleteBridge(address[] calldata users, uint256[] calldata amounts, uint256[] calldata sourceChainIds, bytes32[] calldata bridgeIds, uint256[] calldata timestamps, bytes[] calldata signatures) external",
+  "function getBridgeFee(uint256 amount) external pure returns (uint256)",
+  "function getBridgeRequest(uint256 nonce) external view returns (tuple(address user, uint256 amount, uint256 targetChainId, uint256 nonce, uint256 timestamp, bool processed, bytes32 bridgeId))",
+  "function isBridgeProcessed(bytes32 bridgeId) external view returns (bool)",
+  "function getUserBridgeInfo(address user) external view returns (uint256 bridgeCount, uint256 lastBridge, uint256 dailyAmount, uint256 remainingDaily, uint256 nextBridgeTime)",
+  "function getChainInfo() external view returns (uint256[] memory supportedChainIds, address[] memory bridgeAddresses)",
+  "function getBridgeStats() external view returns (uint256 totalBridgedAmount, uint256 totalFees, uint256 currentNonce, uint256 contractBalance)",
+  "function supportedChains(uint256 chainId) external view returns (bool)",
+  "function chainBridges(uint256 chainId) external view returns (address)",
+  "function authorizedRelayers(address relayer) external view returns (bool)",
+  "function WALT_TOKEN() external view returns (address)",
+  "function BRIDGE_FEE_RATE() external view returns (uint256)",
+  "function MIN_BRIDGE_AMOUNT() external view returns (uint256)",
+  "function MAX_BRIDGE_AMOUNT() external view returns (uint256)",
+  "function DAILY_LIMIT() external view returns (uint256)",
+  "function BRIDGE_COOLDOWN() external view returns (uint256)"
+];
+
 export const LIQUIDITY_POOL_ABI = [
   "function addLiquidity(uint256 fcncrAmount, uint256 altAmount) external returns (uint256)",
   "function removeLiquidity(uint256 liquidity) external returns (uint256, uint256)",
@@ -58,7 +79,10 @@ export const ERC20_ABI = [
   "function transfer(address to, uint256 amount) external returns (bool)",
   "function approve(address spender, uint256 amount) external returns (bool)",
   "function allowance(address owner, address spender) external view returns (uint256)",
-  "function decimals() external view returns (uint8)"
+  "function decimals() external view returns (uint8)",
+  "function name() external view returns (string)",
+  "function symbol() external view returns (string)",
+  "function totalSupply() external view returns (uint256)"
 ];
 
 export const CREATE2_DEPLOYER_ABI = [

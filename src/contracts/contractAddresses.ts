@@ -6,6 +6,7 @@ export const CONTRACT_ADDRESSES = {
     messenger: '',
     bridge: '',
     liquidityPool: '',
+    waltBridge: '', // wALT Bridge address (deterministic)
     altToken: '0x48721ADeFE5b97101722c0866c2AffCE797C32b6'
   },
   1: { // Ethereum Mainnet
@@ -14,6 +15,7 @@ export const CONTRACT_ADDRESSES = {
     messenger: '',
     bridge: '',
     liquidityPool: '',
+    waltBridge: '', // wALT Bridge address (deterministic)
     altToken: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2' // WETH as ALT token equivalent
   },
   61803: { // Etica Mainnet (formerly EGAZ)
@@ -22,6 +24,7 @@ export const CONTRACT_ADDRESSES = {
     messenger: '',
     bridge: '',
     liquidityPool: '',
+    waltBridge: '', // wALT Bridge address (deterministic)
     altToken: '0x444a294EA9858A1c61624300978D9b5C49Ba8873'
   },
   7070: { // PlanQ Mainnet
@@ -30,6 +33,7 @@ export const CONTRACT_ADDRESSES = {
     messenger: '',
     bridge: '',
     liquidityPool: '',
+    waltBridge: '', // wALT Bridge address (deterministic)
     altToken: '0x5ebcdf1de1781e8b5d41c016b0574ad53e2f6e1a'
   },
   800001: { // OctaSpace
@@ -38,6 +42,7 @@ export const CONTRACT_ADDRESSES = {
     messenger: '',
     bridge: '',
     liquidityPool: '',
+    waltBridge: '', // wALT Bridge address (deterministic)
     altToken: '0x444a294EA9858A1c61624300978D9b5C49Ba8873'
   },
   2000: { // DOGEchain
@@ -46,6 +51,7 @@ export const CONTRACT_ADDRESSES = {
     messenger: '',
     bridge: '',
     liquidityPool: '',
+    waltBridge: '', // wALT Bridge address (deterministic)
     altToken: '0xB7ddC6414bf4F5515b52D8BdD69973Ae205ff101'
   },
   146: { // Sonic Mainnet
@@ -54,6 +60,7 @@ export const CONTRACT_ADDRESSES = {
     messenger: '',
     bridge: '',
     liquidityPool: '',
+    waltBridge: '', // wALT Bridge address (deterministic)
     altToken: '0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83'
   },
   250: { // Fantom
@@ -62,8 +69,22 @@ export const CONTRACT_ADDRESSES = {
     messenger: '',
     bridge: '',
     liquidityPool: '',
+    waltBridge: '', // wALT Bridge address (deterministic)
     altToken: '0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83'
+  },
+  1313161554: { // ETHO Protocol
+    fcncr: '',
+    fcncrCrossChain: '',
+    messenger: '',
+    bridge: '',
+    liquidityPool: '',
+    waltBridge: '', // wALT Bridge address (deterministic)
+    altToken: '0xF30eCf203fae5051ECA8640d2752265f4ED49ACB'
   }
 } as const;
 
 export type ChainId = keyof typeof CONTRACT_ADDRESSES;
+
+// wALT Bridge will have the same address across all chains
+export const WALT_BRIDGE_ADDRESS = ""; // Will be filled after deterministic deployment
+export const WALT_TOKEN_ADDRESS = "0x48721ADeFE5b97101722c0866c2AffCE797C32b6";
