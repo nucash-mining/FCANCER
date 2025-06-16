@@ -4,6 +4,7 @@ const path = require('path');
 
 const networks = [
   'altcoinchain',
+  'ethereum',
   'etica',
   'planq',
   'octaspace',
@@ -114,6 +115,7 @@ async function main() {
     results: deploymentResults,
     chainIds: {
       altcoinchain: 2330,
+      ethereum: 1,
       etica: 61803,
       planq: 7070,
       octaspace: 800001,

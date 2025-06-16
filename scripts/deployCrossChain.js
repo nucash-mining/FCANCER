@@ -13,6 +13,7 @@ async function main() {
   // Get ALT token address for current network
   const altTokenAddresses = {
     2330: "0x48721ADeFE5b97101722c0866c2AffCE797C32b6",  // Altcoinchain
+    1: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",     // Ethereum (WETH)
     61803: "0x444a294EA9858A1c61624300978D9b5C49Ba8873", // Etica (using EGAZ address)
     7070: "0x5ebcdf1de1781e8b5d41c016b0574ad53e2f6e1a",  // PlanQ
     800001: "0x444a294EA9858A1c61624300978D9b5C49Ba8873", // OctaSpace

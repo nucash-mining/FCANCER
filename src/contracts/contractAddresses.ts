@@ -8,6 +8,14 @@ export const CONTRACT_ADDRESSES = {
     liquidityPool: '',
     altToken: '0x48721ADeFE5b97101722c0866c2AffCE797C32b6'
   },
+  1: { // Ethereum Mainnet
+    fcncr: '',
+    fcncrCrossChain: '',
+    messenger: '',
+    bridge: '',
+    liquidityPool: '',
+    altToken: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2' // WETH as ALT token equivalent
+  },
   61803: { // Etica Mainnet (formerly EGAZ)
     fcncr: '',
     fcncrCrossChain: '',

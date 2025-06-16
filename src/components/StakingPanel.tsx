@@ -20,6 +20,7 @@ const StakingPanel: React.FC = () => {
     if (!currentChain) return 'ALT';
     
     switch (currentChain.id) {
+      case 1: return 'ETH';
       case 61803: return 'EGAZ';
       case 7070: return 'PLANQ';
       case 800001: return 'OCTA';
@@ -214,7 +215,7 @@ const StakingPanel: React.FC = () => {
               <strong>Connect your wallet to start staking!</strong>
             </p>
             <p className="text-xs text-blue-600">
-              Supported networks: EGAZ, PLANQ, OCTA, DC, S, FTM, ALT
+              Supported networks: ETH, EGAZ, PLANQ, OCTA, DC, S, FTM, ALT
             </p>
           </div>
         )}

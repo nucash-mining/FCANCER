@@ -52,6 +52,7 @@ contract CrossChainMessenger is Ownable, ReentrancyGuard, Pausable {
     constructor() {
         // Initialize supported chains
         supportedChains[2330] = true;  // Altcoinchain
+        supportedChains[1] = true;     // Ethereum
         supportedChains[61803] = true; // Etica
         supportedChains[7070] = true;  // PlanQ
         supportedChains[800001] = true; // OctaSpace

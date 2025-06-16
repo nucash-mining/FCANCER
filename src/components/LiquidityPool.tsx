@@ -17,6 +17,7 @@ const LiquidityPool: React.FC = () => {
     if (!currentChain) return 'ALT';
     
     switch (currentChain.id) {
+      case 1: return 'ETH';
       case 61803: return 'EGAZ';
       case 7070: return 'PLANQ';
       case 800001: return 'OCTA';
@@ -255,7 +256,7 @@ const LiquidityPool: React.FC = () => {
             <strong>Connect your wallet to provide liquidity!</strong>
           </p>
           <p className="text-xs text-blue-600">
-            Available on: EGAZ, PLANQ, OCTA, DC, S, FTM, ALT networks
+            Available on: ETH, EGAZ, PLANQ, OCTA, DC, S, FTM, ALT networks
           </p>
         </div>
       )}

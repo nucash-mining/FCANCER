@@ -17,6 +17,12 @@ module.exports = {
       chainId: 2330,
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : []
     },
+    ethereum: {
+      url: process.env.ETH_RPC_URL || "https://eth.llamarpc.com",
+      chainId: 1,
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      gasPrice: "auto"
+    },
     etica: {
       url: "https://eticamainnet.eticascan.org",
       chainId: 61803,
@@ -50,6 +56,7 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
+      mainnet: process.env.ETHERSCAN_API_KEY,
       // Add API keys for verification if needed
     }
   }
