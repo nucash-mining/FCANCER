@@ -7,7 +7,7 @@ import LiquidityPool from './components/LiquidityPool';
 import ChainSelector from './components/ChainSelector';
 import SwapinDEX from './components/SwapinDEX';
 import WALTBridge from './components/WALTBridge';
-import { ArrowRightLeft, Coins } from 'lucide-react';
+import { ArrowRightLeft, Coins, Github } from 'lucide-react';
 import { useTheme } from './hooks/useTheme';
 
 function App() {
@@ -169,14 +169,28 @@ function App() {
               Total Supply: 21,000,000 FCNCR • Halving Schedule: Every 210,000 blocks
             </p>
             <div className="flex justify-center space-x-6 mt-4">
-              <a href="#" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 text-sm font-medium">
+              <a 
+                href="/whitepaper.html" 
+                target="_blank"
+                className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 text-sm font-medium transition-colors"
+              >
                 Whitepaper
               </a>
-              <a href="#" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 text-sm font-medium">
+              <a 
+                href="/documentation.html" 
+                target="_blank"
+                className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 text-sm font-medium transition-colors"
+              >
                 Documentation
               </a>
-              <a href="#" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 text-sm font-medium">
-                GitHub
+              <a 
+                href="https://github.com/nucash-mining/FCANCER/" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 text-sm font-medium transition-colors flex items-center space-x-1"
+              >
+                <Github className="h-4 w-4" />
+                <span>GitHub</span>
               </a>
               <a href="#" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 text-sm font-medium">
                 Community

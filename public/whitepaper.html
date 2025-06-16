@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCNCR: A Peer-to-Peer Cross-Chain Cancer Research Token</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .paper {
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .subtitle {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 30px;
+            color: #666;
+        }
+        .author {
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+        h2 {
+            color: #8B5CF6;
+            border-bottom: 2px solid #8B5CF6;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #6366F1;
+            margin-top: 25px;
+        }
+        .abstract {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 4px solid #8B5CF6;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        .code {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .formula {
+            text-align: center;
+            font-style: italic;
+            margin: 15px 0;
+            padding: 10px;
+            background: #fef7ff;
+            border: 1px solid #e879f9;
+            border-radius: 5px;
+        }
+        .network-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .network-table th, .network-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .network-table th {
+            background-color: #8B5CF6;
+            color: white;
+        }
+        .references {
+            margin-top: 40px;
+            font-size: 14px;
+        }
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #8B5CF6;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            background: #7C3AED;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-link">← Back to FCNCR</a>
+    
+    <div class="paper">
+        <h1>FCNCR: A Peer-to-Peer Cross-Chain Cancer Research Token</h1>
+        <div class="subtitle">Fighting Cancer Through Decentralized Blockchain Technology</div>
+        <div class="author">FCNCR Development Team</div>
+
+        <div class="abstract">
+            <strong>Abstract.</strong> A purely peer-to-peer version of cross-chain cancer research funding would allow direct contributions to cancer research without going through traditional financial institutions. Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending across multiple blockchain networks. We propose a solution to the cross-chain funding problem using a proof-of-stake network with Bitcoin-like halving mechanics. The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work, forming a record that cannot be changed without redoing the proof-of-work. The longest chain not only serves as proof of the sequence of events witnessed, but proof that it came from the largest pool of CPU power. As long as a majority of CPU power is controlled by nodes that are not cooperating to attack the network, they'll generate the longest chain and outpace attackers. The network itself requires minimal structure. Messages are broadcast on a best effort basis, and nodes can leave and rejoin the network at will, accepting the longest proof-of-work chain as proof of what happened while they were gone.
+        </div>
+
+        <h2>1. Introduction</h2>
+        <p>Cancer research funding has traditionally relied on centralized institutions, government grants, and pharmaceutical companies. While these sources have contributed significantly to medical advances, they often involve lengthy bureaucratic processes, geographical limitations, and potential conflicts of interest. What is needed is a decentralized funding mechanism that allows global participation in cancer research support while maintaining transparency and accountability.</p>
+
+        <p>The FCNCR (Fuck Cancer) token represents a revolutionary approach to cancer research funding through blockchain technology. By implementing a cross-chain architecture with Bitcoin-like halving mechanics, FCNCR creates a sustainable economic model that rewards participants while generating resources for cancer research initiatives.</p>
+
+        <h2>2. Transactions</h2>
+        <p>We define an FCNCR token as a chain of digital signatures across multiple blockchain networks. Each owner transfers the token to the next by digitally signing a hash of the previous transaction and the public key of the next owner and adding these to the end of the token. A payee can verify the signatures to verify the chain of ownership.</p>
+
+        <div class="formula">
+            <strong>Cross-Chain Transaction Verification:</strong><br>
+            Verify(Transaction) = ValidateSignature(PrevHash, PublicKey, Signature) ∧ ValidateChain(SourceChain, TargetChain)
+        </div>
+
+        <p>The problem of course is the payee can't verify that one of the owners did not double-spend the token across different blockchain networks. A common solution is to introduce a trusted central authority, or mint, that checks every transaction for double spending. After each transaction, the token must be returned to the mint to issue a new token, and only tokens issued directly from the mint are trusted not to be double-spent. The problem with this solution is that the fate of the entire money system depends on the company running the mint, with every transaction having to go through them, just like a bank.</p>
+
+        <h2>3. Cross-Chain Messaging Server</h2>
+        <p>To solve the cross-chain double-spending problem, we propose a cross-chain messaging server using a timestamp server. A timestamp server works by taking a hash of a block of items to be timestamped and widely publishing the hash. The timestamp proves that the data must have existed at the time, obviously, in order to get into the hash. Each timestamp includes the previous timestamp in its hash, forming a chain, with each additional timestamp reinforcing the ones before it.</p>
+
+        <div class="code">
+            struct CrossChainMessage {
+                uint256 id;
+                address sender;
+                uint256 targetChainId;
+                bytes payload;
+                uint256 timestamp;
+                bool executed;
+                bytes32 messageHash;
+            }
+        </div>
+
+        <h2>4. Proof-of-Stake with Halving Mechanics</h2>
+        <p>To implement a distributed timestamp server on a peer-to-peer basis, we use a proof-of-stake system similar to Adam Back's Hashcash, but with staking instead of proof-of-work. The proof-of-stake involves scanning for a value that when hashed, such as with SHA-256, the hash begins with a number of zero bits. The average work required is exponential in the number of zero bits required and can be verified by executing a single hash.</p>
+
+        <p>For our timestamp network, we implement the proof-of-stake by incrementing a nonce in the block until a value is found that gives the block's hash the required zero bits. Once the CPU effort has been expended to make it satisfy the proof-of-stake, the block cannot be changed without redoing the work.</p>
+
+        <div class="formula">
+            <strong>Halving Schedule:</strong><br>
+            Reward(block) = InitialReward × 2^(-⌊block/210000⌋)<br>
+            Where InitialReward = 50 FCNCR
+        </div>
+
+        <h2>5. Network Architecture</h2>
+        <p>The FCNCR network operates across multiple blockchain networks, each supporting the same token standard but adapted to the specific characteristics of each chain:</p>
+
+        <table class="network-table">
+            <tr>
+                <th>Network</th>
+                <th>Chain ID</th>
+                <th>Native Token</th>
+                <th>Staking Token</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>Altcoinchain</td>
+                <td>2330</td>
+                <td>ALT</td>
+                <td>ALT</td>
+                <td>Master chain for ALT staking</td>
+            </tr>
+            <tr>
+                <td>Ethereum</td>
+                <td>1</td>
+                <td>ETH</td>
+                <td>wALT</td>
+                <td>Primary DeFi integration</td>
+            </tr>
+            <tr>
+                <td>Fantom</td>
+                <td>250</td>
+                <td>FTM</td>
+                <td>wALT</td>
+                <td>Fast, low-cost transactions</td>
+            </tr>
+            <tr>
+                <td>Sonic</td>
+                <td>146</td>
+                <td>S</td>
+                <td>wALT</td>
+                <td>High-performance trading</td>
+            </tr>
+            <tr>
+                <td>PlanQ</td>
+                <td>7070</td>
+                <td>PLQ</td>
+                <td>wALT</td>
+                <td>Cosmos ecosystem integration</td>
+            </tr>
+        </table>
+
+        <h2>6. Staking and Reward Distribution</h2>
+        <p>The FCNCR network implements a unique cross-chain staking mechanism where users can stake ALT tokens on Altcoinchain or wALT tokens on other supported networks. The reward distribution is calculated based on the global staking pool across all networks:</p>
+
+        <div class="formula">
+            <strong>User Reward Calculation:</strong><br>
+            UserReward = (UserStake / GlobalStake) × BlockReward × BlocksSinceLastClaim
+        </div>
+
+        <h3>6.1 Cross-Chain Staking Process</h3>
+        <ol>
+            <li><strong>Stake Tokens:</strong> Users stake ALT on Altcoinchain or wALT on other networks</li>
+            <li><strong>Global Pool Update:</strong> Cross-chain messaging updates the global staking pool</li>
+            <li><strong>Reward Calculation:</strong> Rewards are calculated proportionally across all networks</li>
+            <li><strong>Claim Rewards:</strong> Users can claim FCNCR tokens on any supported network</li>
+        </ol>
+
+        <h2>7. Bridge Mechanism</h2>
+        <p>The wALT bridge enables seamless transfer of ALT tokens across all supported networks using deterministic contract addresses. The bridge implements several security features:</p>
+
+        <h3>7.1 Security Features</h3>
+        <ul>
+            <li><strong>Rate Limiting:</strong> 100,000 wALT daily limit per address</li>
+            <li><strong>Cooldown Period:</strong> 5-minute cooldown between bridge transactions</li>
+            <li><strong>Fee Structure:</strong> 0.05% bridge fee for network security</li>
+            <li><strong>Authorized Relayers:</strong> Multi-signature relayer network</li>
+            <li><strong>Emergency Pause:</strong> Circuit breaker for security incidents</li>
+        </ul>
+
+        <h3>7.2 Bridge Process</h3>
+        <div class="code">
+            function initiateBridge(uint256 amount, uint256 targetChainId) external {
+                // Validate amount and target chain
+                require(amount >= MIN_BRIDGE_AMOUNT, "Amount too small");
+                require(supportedChains[targetChainId], "Chain not supported");
+                
+                // Calculate fee and bridge amount
+                uint256 fee = (amount * BRIDGE_FEE_RATE) / FEE_DENOMINATOR;
+                uint256 bridgeAmount = amount - fee;
+                
+                // Lock tokens and create bridge request
+                WALT_TOKEN.transferFrom(msg.sender, address(this), amount);
+                
+                // Send cross-chain message
+                bytes memory payload = abi.encode(targetBridge, bridgeAmount);
+                messenger.sendMessage(targetChainId, payload);
+            }
+        </div>
+
+        <h2>8. Halving Economics</h2>
+        <p>The FCNCR token implements a Bitcoin-inspired halving mechanism to ensure long-term sustainability and value appreciation. The halving occurs every 210,000 blocks, reducing the block reward by 50%:</p>
+
+        <div class="formula">
+            <strong>Total Supply Calculation:</strong><br>
+            TotalSupply = Σ(BlockReward × BlocksPerHalving) for each halving period<br>
+            ≈ 21,000,000 FCNCR (asymptotic limit)
+        </div>
+
+        <h3>8.1 Halving Schedule</h3>
+        <ul>
+            <li><strong>Blocks 0-209,999:</strong> 50 FCNCR per block</li>
+            <li><strong>Blocks 210,000-419,999:</strong> 25 FCNCR per block</li>
+            <li><strong>Blocks 420,000-629,999:</strong> 12.5 FCNCR per block</li>
+            <li><strong>Blocks 630,000-839,999:</strong> 6.25 FCNCR per block</li>
+            <li><strong>And so on...</strong> until rewards approach zero</li>
+        </ul>
+
+        <h2>9. Cancer Research Funding Mechanism</h2>
+        <p>The FCNCR ecosystem generates funding for cancer research through multiple mechanisms:</p>
+
+        <h3>9.1 Revenue Sources</h3>
+        <ul>
+            <li><strong>Bridge Fees:</strong> 0.05% of all cross-chain transfers</li>
+            <li><strong>Trading Fees:</strong> 0.3% from DEX liquidity pools</li>
+            <li><strong>Staking Fees:</strong> Small percentage of staking rewards</li>
+            <li><strong>Community Treasury:</strong> Portion of initial token allocation</li>
+        </ul>
+
+        <h3>9.2 Fund Distribution</h3>
+        <p>Collected funds are distributed to cancer research initiatives through a decentralized governance mechanism, ensuring transparency and community involvement in funding decisions.</p>
+
+        <h2>10. Privacy and Security</h2>
+        <p>The traditional banking model achieves a level of privacy by limiting access to information to the parties involved and the trusted third party. The necessity to announce all transactions publicly precludes this method, but privacy can still be maintained by breaking the flow of information in another place: by keeping public keys anonymous.</p>
+
+        <p>The FCNCR network implements additional privacy features:</p>
+        <ul>
+            <li><strong>Pseudonymous Addresses:</strong> All transactions use cryptographic addresses</li>
+            <li><strong>Cross-Chain Mixing:</strong> Bridge transactions provide natural mixing</li>
+            <li><strong>Decentralized Relayers:</strong> No single point of transaction monitoring</li>
+        </ul>
+
+        <h2>11. Calculations</h2>
+        <p>We consider the scenario of an attacker trying to generate an alternate chain faster than the honest chain. Even if this is accomplished, it does not throw the system open to arbitrary changes, such as creating value out of thin air or taking money that never belonged to the attacker. Nodes are not going to accept an invalid transaction as payment, and honest nodes will never accept a block containing them.</p>
+
+        <div class="formula">
+            <strong>Attack Success Probability:</strong><br>
+            P = Σ(λ^k × e^(-λ) / k!) × (q/p)^(z-k) for k=0 to z<br>
+            Where q = attacker's stake ratio, p = honest stake ratio
+        </div>
+
+        <h2>12. Conclusion</h2>
+        <p>We have proposed a system for cross-chain cancer research funding without relying on traditional financial institutions. We started with the usual framework of digital signatures and cross-chain messaging, which provides strong control of ownership and prevents double-spending across networks, but is incomplete without a way to prevent double-spending across chains.</p>
+
+        <p>To solve this, we proposed a peer-to-peer network using proof-of-stake with Bitcoin-like halving mechanics to record a public history of transactions that quickly becomes computationally impractical for an attacker to change if honest nodes control a majority of the staking power.</p>
+
+        <p>The network is robust in its unstructured simplicity. Nodes work all at once with little coordination. They do not need to be identified, since messages are not routed to any particular place and only need to be delivered on a best effort basis. Nodes can leave and rejoin the network at will, accepting the proof-of-stake chain as proof of what happened while they were gone.</p>
+
+        <p>The FCNCR token represents more than just a cryptocurrency—it's a movement to democratize cancer research funding and create a sustainable, transparent, and global approach to fighting one of humanity's greatest challenges.</p>
+
+        <div class="references">
+            <h2>References</h2>
+            <ol>
+                <li>Nakamoto, S. (2008). Bitcoin: A Peer-to-Peer Electronic Cash System.</li>
+                <li>Buterin, V. (2013). Ethereum: A Next-Generation Smart Contract and Decentralized Application Platform.</li>
+                <li>Wood, G. (2014). Ethereum: A Secure Decentralised Generalised Transaction Ledger.</li>
+                <li>Cosmos Network. (2016). Cosmos: A Network of Distributed Ledgers.</li>
+                <li>Polkadot. (2016). Polkadot: Vision for a Heterogeneous Multi-Chain Framework.</li>
+                <li>LayerZero Labs. (2021). LayerZero: An Omnichain Interoperability Protocol.</li>
+                <li>American Cancer Society. (2023). Cancer Research Funding Statistics.</li>
+                <li>National Cancer Institute. (2023). Cancer Research Priorities and Funding.</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>
