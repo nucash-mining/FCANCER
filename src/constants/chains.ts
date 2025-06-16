@@ -1,0 +1,99 @@
+import { Chain } from '../types';
+
+export const SUPPORTED_CHAINS: Chain[] = [
+  {
+    id: 2330,
+    name: 'Altcoinchain',
+    symbol: 'ALT',
+    rpc: 'http://99.248.100.186:8645',
+    explorer: 'http://alt-exp.outsidethebox.top/',
+    wrapperToken: '0x48721ADeFE5b97101722c0866c2AffCE797C32b6',
+    factory: '0x347aAc6D939f98854110Ff48dC5B7beB52D86445',
+    router: '0xae168Ce47cebca9abbC5107a58df0532f1afa4d6',
+    multicall: '0x426b13031851947ce04C51670a6E9C622B18aa3C',
+    tokenMultisender: '0xCF110A9F7c705604190f9Dd6FDf0FC79D00D569B',
+    color: '#8B5CF6'
+  },
+  {
+    id: 61803,
+    name: 'Etica Mainnet',
+    symbol: 'EGAZ',
+    rpc: 'https://eticamainnet.eticascan.org',
+    explorer: 'https://eticascan.org',
+    wrapperToken: '0x444a294EA9858A1c61624300978D9b5C49Ba8873',
+    factory: '0x347aAc6D939f98854110Ff48dC5B7beB52D86445',
+    router: '0xae168Ce47cebca9abbC5107a58df0532f1afa4d6',
+    multicall: '0x426b13031851947ce04C51670a6E9C622B18aa3C',
+    tokenMultisender: '0xCF110A9F7c705604190f9Dd6FDf0FC79D00D569B',
+    color: '#3B82F6'
+  },
+  {
+    id: 7070,
+    name: 'PlanQ Mainnet',
+    symbol: 'PLQ',
+    rpc: 'https://evm-rpc.planq.network',
+    explorer: 'https://explorer.planq.network',
+    wrapperToken: '0x5ebcdf1de1781e8b5d41c016b0574ad53e2f6e1a',
+    factory: '0x347aAc6D939f98854110Ff48dC5B7beB52D86445',
+    router: '0xae168Ce47cebca9abbC5107a58df0532f1afa4d6',
+    multicall: '0x426b13031851947ce04C51670a6E9C622B18aa3C',
+    tokenMultisender: '0x5a03b79b6F4cbb1eC8276a87b74a9304D05442C7',
+    color: '#10B981'
+  },
+  {
+    id: 800001,
+    name: 'OctaSpace',
+    symbol: 'OCTA',
+    rpc: 'https://rpc.octa.space',
+    explorer: 'https://explorer.octa.space',
+    wrapperToken: '0x444a294EA9858A1c61624300978D9b5C49Ba8873',
+    factory: '0x347aAc6D939f98854110Ff48dC5B7beB52D86445',
+    router: '0xae168Ce47cebca9abbC5107a58df0532f1afa4d6',
+    multicall: '0x426b13031851947ce04C51670a6E9C622B18aa3C',
+    tokenMultisender: '0xCF110A9F7c705604190f9Dd6FDf0FC79D00D569B',
+    color: '#F59E0B'
+  },
+  {
+    id: 2000,
+    name: 'DOGEchain',
+    symbol: 'WDOGE',
+    rpc: 'https://rpc.dogechain.dog',
+    explorer: 'https://explorer.dogechain.dog',
+    wrapperToken: '0xB7ddC6414bf4F5515b52D8BdD69973Ae205ff101',
+    factory: '0x347aAc6D939f98854110Ff48dC5B7beB52D86445',
+    router: '0xae168Ce47cebca9abbC5107a58df0532f1afa4d6',
+    multicall: '0x426b13031851947ce04C51670a6E9C622B18aa3C',
+    tokenMultisender: '0x5a03b79b6F4cbb1eC8276a87b74a9304D05442C7',
+    color: '#FBBF24'
+  },
+  {
+    id: 146,
+    name: 'Sonic Mainnet',
+    symbol: 'S',
+    rpc: 'https://rpc.soniclabs.com',
+    explorer: 'https://sonicscan.org',
+    wrapperToken: '0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83',
+    factory: '0x347aAc6D939f98854110Ff48dC5B7beB52D86445',
+    router: '0xae168Ce47cebca9abbC5107a58df0532f1afa4d6',
+    multicall: '0x426b13031851947ce04C51670a6E9C622B18aa3C',
+    tokenMultisender: '0x5a03b79b6F4cbb1eC8276a87b74a9304D05442C7',
+    color: '#00D4FF'
+  },
+  {
+    id: 250,
+    name: 'Fantom',
+    symbol: 'FTM',
+    rpc: 'https://rpc.ftm.tools',
+    explorer: 'https://ftmscan.com',
+    wrapperToken: '0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83',
+    factory: '0x347aAc6D939f98854110Ff48dC5B7beB52D86445',
+    router: '0xae168Ce47cebca9abbC5107a58df0532f1afa4d6',
+    multicall: '0x426b13031851947ce04C51670a6E9C622B18aa3C',
+    tokenMultisender: '0x5a03b79b6F4cbb1eC8276a87b74a9304D05442C7',
+    color: '#1969FF'
+  }
+];
+
+export const HALVING_BLOCKS = [210000, 420000, 630000, 840000, 1050000];
+export const INITIAL_REWARD = 50;
+export const TOTAL_SUPPLY = 21000000;
