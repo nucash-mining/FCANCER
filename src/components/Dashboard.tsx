@@ -16,12 +16,13 @@ const Dashboard: React.FC = () => {
     switch (currentChain.id) {
       case 1: return 'ETH';
       case 61803: return 'EGAZ';
-      case 7070: return 'PLANQ';
+      case 7070: return 'PLQ';
       case 800001: return 'OCTA';
-      case 2000: return 'DC';
+      case 2000: return 'WDOGE';
       case 146: return 'S';
       case 250: return 'FTM';
       case 2330: return 'ALT';
+      case 1313161554: return 'ETHO';
       default: return 'ALT';
     }
   };

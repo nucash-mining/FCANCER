@@ -16,7 +16,7 @@ const StakingPanel: React.FC = () => {
   const [isClaiming, setIsClaiming] = useState(false);
   const [isMining, setIsMining] = useState(false);
 
-  // Get current chain info
+  // Get current chain info and dynamic ticker
   const currentChain = SUPPORTED_CHAINS.find(chain => chain.id === wallet.chainId);
   const getNetworkSymbol = () => {
     if (!currentChain) return 'ALT';
@@ -24,15 +24,18 @@ const StakingPanel: React.FC = () => {
     switch (currentChain.id) {
       case 1: return 'ETH';
       case 61803: return 'EGAZ';
-      case 7070: return 'PLANQ';
+      case 7070: return 'PLQ';
       case 800001: return 'OCTA';
-      case 2000: return 'DC';
+      case 2000: return 'WDOGE';
       case 146: return 'S';
       case 250: return 'FTM';
       case 2330: return 'ALT';
+      case 1313161554: return 'ETHO';
       default: return 'ALT';
     }
   };
+
+  const networkSymbol = getNetworkSymbol();
 
   const handleStake = async () => {
     if (!wallet.isConnected || !stakeAmount) return;
@@ -97,14 +100,12 @@ const StakingPanel: React.FC = () => {
   };
 
   const maxStake = () => {
-    setStakeAmount('1000'); // This should be replaced with actual ALT balance
+    setStakeAmount('1000'); // This should be replaced with actual token balance
   };
 
   const maxUnstake = () => {
     setUnstakeAmount(stats.stakedAmount.toString());
   };
-
-  const networkSymbol = getNetworkSymbol();
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
@@ -276,8 +277,30 @@ const StakingPanel: React.FC = () => {
               <strong>Connect your wallet to start staking!</strong>
             </p>
             <p className="text-xs text-blue-600">
-              Supported networks: ETH, EGAZ, PLANQ, OCTA, DC, S, FTM, ALT
+              Supported networks: ETH, EGAZ, PLQ, OCTA, WDOGE, S, FTM, ALT, ETHO
             </p>
+          </div>
+        )}
+
+        {/* Current Network Contract Info */}
+        {wallet.isConnected && currentChain && (
+          <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+            <div className="flex items-center space-x-2 mb-2">
+              <div 
+                className="w-3 h-3 rounded-full"
+                style={{ backgroundColor: currentChain.color }}
+              />
+              <span className="text-sm font-medium text-indigo-800">
+                {currentChain.name} Network Active
+              </span>
+            </div>
+            <div className="text-xs text-indigo-600 space-y-1">
+              <div>Staking Token: <span className="font-mono">{networkSymbol}</span></div>
+              <div>Reward Token: <span className="font-mono">FCNCR</span></div>
+              {currentChain.factory && (
+                <div>Swapin Factory: <span className="font-mono">{currentChain.factory.slice(0, 10)}...</span></div>
+              )}
+            </div>
           </div>
         )}
       </div>

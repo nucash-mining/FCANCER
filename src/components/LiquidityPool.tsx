@@ -19,12 +19,13 @@ const LiquidityPool: React.FC = () => {
     switch (currentChain.id) {
       case 1: return 'ETH';
       case 61803: return 'EGAZ';
-      case 7070: return 'PLANQ';
+      case 7070: return 'PLQ';
       case 800001: return 'OCTA';
-      case 2000: return 'DC';
+      case 2000: return 'WDOGE';
       case 146: return 'S';
       case 250: return 'FTM';
       case 2330: return 'ALT';
+      case 1313161554: return 'ETHO';
       default: return 'ALT';
     }
   };
@@ -153,7 +154,7 @@ const LiquidityPool: React.FC = () => {
             </div>
           </div>
 
-          {/* ALT Input */}
+          {/* Network Token Input */}
           <div className="bg-gray-50 rounded-lg p-4">
             <label className="block text-sm font-medium text-gray-700 mb-2">{networkSymbol} Amount</label>
             <div className="flex space-x-2">
@@ -256,8 +257,28 @@ const LiquidityPool: React.FC = () => {
             <strong>Connect your wallet to provide liquidity!</strong>
           </p>
           <p className="text-xs text-blue-600">
-            Available on: ETH, EGAZ, PLANQ, OCTA, DC, S, FTM, ALT networks
+            Available on: ETH, EGAZ, PLQ, OCTA, WDOGE, S, FTM, ALT, ETHO networks
           </p>
+        </div>
+      )}
+
+      {/* Swapin.co Integration Info */}
+      {wallet.isConnected && currentChain && (
+        <div className="mt-4 bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+          <div className="flex items-center space-x-2 mb-2">
+            <div 
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: currentChain.color }}
+            />
+            <span className="text-sm font-medium text-indigo-800">
+              Powered by Swapin.co on {currentChain.name}
+            </span>
+          </div>
+          <div className="text-xs text-indigo-600 space-y-1">
+            <div>Factory: <span className="font-mono">{currentChain.factory?.slice(0, 10)}...</span></div>
+            <div>Router: <span className="font-mono">{currentChain.router?.slice(0, 10)}...</span></div>
+            <div>Pair: <span className="font-mono">FCNCR/{networkSymbol}</span></div>
+          </div>
         </div>
       )}
     </div>
